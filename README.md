@@ -83,4 +83,4 @@ Semipresencial: 2 horas/semana teoría, 4 horas/semana práctica. Clases combina
 - `/docs/`: Guías y recursos.
 - `/labs/`: Ejercicios prácticos.
 - `/ejemplos/`: Ejemplos de código (Git, Terraform, Docker, etc.).
-- `/projectos/`: Plantillas para proyectos y sprints.
+- `/proyectos/`: Plantillas para proyectos y sprints.
