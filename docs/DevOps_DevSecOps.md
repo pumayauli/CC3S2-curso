@@ -97,7 +97,6 @@ Asimismo, la colaboración entre desarrolladores y expertos en seguridad se fort
 
 La integración temprana de la seguridad permite a las organizaciones tener una visión continua de su postura de riesgo. Con sistemas de alerta y dashboards en tiempo real, se pueden identificar comportamientos anómalos y responder de manera rápida y coordinada. Esta estrategia proactiva no solo reduce la probabilidad de incidentes, sino que también mejora la resiliencia del sistema ante ataques o fallos inesperados.
 
----
 
 ### Retos y buenas prácticas en la implementación de DevOps
 
@@ -124,11 +123,10 @@ Entre las prácticas recomendadas se destacan:
 - **Automatización total del pipeline:** Desde el control de versiones hasta el despliegue en producción, automatizar cada fase reduce errores y acelera la entrega.
 - **Feedback constante:** Establecer canales de comunicación y revisión continua permite ajustar procesos y corregir desviaciones en tiempo real.
 
----
 
 ### Casos prácticos y ejemplos de implementación
 
-La adopción exitosa de DevOps en diversas organizaciones ha permitido evidenciar los beneficios tangibles de esta metodología. Empresas de sectores variados –como tecnología, finanzas y comercio electrónico– han implementado pipelines de CI/CD que les han permitido reducir significativamente el tiempo entre el desarrollo y el despliegue de nuevas funcionalidades.
+La adopción exitosa de DevOps en diversas organizaciones ha permitido evidenciar los beneficios tangibles de esta metodología. Empresas de sectores variados –como tecnología, finanzas y comercio electrónico han implementado pipelines de CI/CD que les han permitido reducir significativamente el tiempo entre el desarrollo y el despliegue de nuevas funcionalidades.
 
 #### Ejemplo de integración de microservicios
 
