@@ -81,6 +81,7 @@ Semipresencial: 2 horas/semana teoría, 4 horas/semana práctica. Clases combina
 ### Estructura del repositorio
 
 - `/docs/`: Guías y recursos.
-- `/labs/`: Ejercicios prácticos.
+- `/labs/`: Laboratorios de clase.
 - `/ejemplos/`: Ejemplos de código (Git, Terraform, Docker, etc.).
 - `/proyectos/`: Plantillas para proyectos y sprints.
+- `/Actividades/`: Actividades del curso, evidencia de avance.
