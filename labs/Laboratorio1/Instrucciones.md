@@ -4,6 +4,18 @@ Este laboratorio te guía por HTTP, DNS (A/AAAA, CNAME, TXT, MX, SRV), TTL y cac
 Integra `curl`, `dig`, `ss`, `openssl`, `lsof`, `ip`, `getent`, `resolv.conf`, Netplan (IP estática), UFW, Nginx (reverse proxy) y una unidad de systemd.  
 La aplicación sigue la metodología **12-Factor App** (configuración por variables de entorno, port binding, logs como flujos).
 
+
+#### Conceptos tratados
+
+- **HTTP como contrato observable:** La app expone `/` con estado, mensaje y versión, y escribe **logs a stdout**. Esto facilita monitoreo y depuración. Se respetan los **métodos** e **idempotencia** para reintentos y *health checks*.
+- **12-Factor App (extracto):** Configuración por **variables de entorno** (`PORT`, `MESSAGE`, `RELEASE`), **port binding** (la app escucha en el puerto), y **logs como flujos** (stdout). Estas prácticas simplifican despliegues y evitan acoplar configuración al código.
+- **DNS y caché:** Se utilizan entradas de `hosts` para `miapp.local` y comandos (`dig`) para observar **TTL** y comportamiento de caché. El *resolver* local reduce latencias y centraliza políticas.
+- **TLS y reverse proxy:** Nginx termina TLS en `:443`, reenvía tráfico a la app Flask en `127.0.0.1:8080` y añade cabeceras `X-Forwarded-*`. Se emplean **certificados autofirmados** solo para laboratorio.
+- **Firewall y servicios:** `ufw` puede permitir `443/tcp`; `systemd` (o `service` en WSL) controla procesos en segundo plano.  
+- **Diagnóstico operativo:** `ss` para puertos, `openssl s_client` para el apretón de manos TLS, `curl` para validar respuestas HTTP/HTTPS y `journalctl`/logs de Nginx para errores.
+
+> Con ello se integran **aplicación**, **red** (DNS/hosts), **seguridad** (TLS), y **operación** (systemd/servicios) en un flujo reproducible con `make` tanto en Linux nativo como en Windows+WSL.
+
 #### Requisitos previos
 Sistema tipo Ubuntu/Debian con: `python3-venv`, `nginx`, `ufw` (opcional), `dnsutils` (para `dig`), `lsof`, `iproute2`, `openssl`.
 
@@ -21,18 +33,17 @@ make nginx
 make ufw-open
 make check-tls
 make dns-demo
+```
 
----
+#### Guía por sistema operativo (paso a paso)
 
-## Guía por sistema operativo (paso a paso)
-
-### A) Linux (Ubuntu/Debian nativo)
+#### A) Linux (Ubuntu/Debian nativo)
 > **Requisitos**: `python3-venv`, `nginx`, `dnsutils`, `lsof`, `iproute2`, `openssl` (y opcionalmente `ufw`).  
 > **Notas**: Requiere permisos de `sudo` para tareas que tocan `/etc` (nginx, hosts, certificados).
 
 1. **Clonar y abrir el proyecto**
    ```bash
-   git clone <URL_DEL_REPO> lab-http-dns-tls && cd lab-http-dns-tls
+   git clone <URL_DEL_REPO>/labs && cd Laboratorio1
    ```
 2. **Preparar entorno y ejecutar la app Flask**
    ```bash
@@ -81,13 +92,13 @@ make dns-demo
    ```
 
 > **Diagnóstico útil (Linux):**  
-> - `ss -tlpn | grep -E ':(8080|443)'` — ver puertos en uso.  
-> - `journalctl -u nginx --no-pager -n 100` — logs de Nginx.  
-> - `tail -f /var/log/nginx/error.log` — errores de Nginx.  
-> - `dig +short miapp.local` — resolución local de hosts.
+> - `ss -tlpn | grep -E ':(8080|443)'` - ver puertos en uso.  
+> - `journalctl -u nginx --no-pager -n 100` - logs de Nginx.  
+> - `tail -f /var/log/nginx/error.log` - errores de Nginx.  
+> - `dig +short miapp.local` - resolución local de hosts.
 
 
-### B) Windows 10/11 + WSL2 (Ubuntu) + Visual Studio Code (Remoto WSL)
+#### B) Windows 10/11 + WSL2 (Ubuntu) + Visual Studio Code (Remoto WSL)
 > Ejecutaremos **todo dentro de WSL (Ubuntu)** y editaremos el código con **VS Code** usando la extensión *WSL*.  
 > Esto evita problemas de rendimiento y rutas cuando el proyecto está en `C:` (que aparece como `/mnt/c/` dentro de WSL).
 
@@ -103,8 +114,8 @@ make dns-demo
    - Dentro de VS Code, instala la extensión **WSL** (ID: `ms-vscode-remote.remote-wsl`).
 
 3. **Abrir una ventana de VS Code conectada a WSL**
-   - Presiona `Ctrl+Shift+P` → **“WSL: New WSL Window”**.
-   - En esa ventana (verde), **Open Folder…** y elige una carpeta en **WSL**, por ejemplo: `/home/<tu_usuario>/proyectos`.
+   - Presiona `Ctrl+Shift+P` -> **“WSL: New WSL Window”**.
+   - En esa ventana (verde), **Open Folder...** y elige una carpeta en **WSL**, por ejemplo: `/home/<tu_usuario>/proyectos`.
 
 4. **Copiar o clonar el proyecto dentro de WSL (evitar `/mnt/c`)**
    - Si lo tienes en Windows:  
@@ -160,15 +171,3 @@ make dns-demo
 > - `curl -k https://miapp.local/` desde WSL y desde Windows para comparar.  
 > - Si el navegador de Windows no resuelve `miapp.local`, revisa el *hosts de Windows* (no el de WSL).
 
----
-
-## Informe breve de conceptos tratados
-
-- **HTTP como contrato observable:** La app expone `/` con estado, mensaje y versión, y escribe **logs a stdout**. Esto facilita monitoreo y depuración. Se respetan los **métodos** e **idempotencia** para reintentos y *health checks*.
-- **12-Factor App (extracto):** Configuración por **variables de entorno** (`PORT`, `MESSAGE`, `RELEASE`), **port binding** (la app escucha en el puerto), y **logs como flujos** (stdout). Estas prácticas simplifican despliegues y evitan acoplar configuración al código.
-- **DNS y caché:** Se utilizan entradas de `hosts` para `miapp.local` y comandos (`dig`) para observar **TTL** y comportamiento de caché. El *resolver* local reduce latencias y centraliza políticas.
-- **TLS y reverse proxy:** Nginx termina TLS en `:443`, reenvía tráfico a la app Flask en `127.0.0.1:8080` y añade cabeceras `X-Forwarded-*`. Se emplean **certificados autofirmados** solo para laboratorio.
-- **Firewall y servicios:** `ufw` puede permitir `443/tcp`; `systemd` (o `service` en WSL) controla procesos en segundo plano.  
-- **Diagnóstico operativo:** `ss` para puertos, `openssl s_client` para el apretón de manos TLS, `curl` para validar respuestas HTTP/HTTPS y `journalctl`/logs de Nginx para errores.
-
-> Con ello se integran **aplicación**, **red** (DNS/hosts), **seguridad** (TLS), y **operación** (systemd/servicios) en un flujo reproducible con `make` tanto en Linux nativo como en Windows+WSL.
