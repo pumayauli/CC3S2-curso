@@ -1,0 +1,82 @@
+===== curl -Iv https://example.com =====
+* Host example.com:443 was resolved.
+* IPv6: 2600:1408:ec00:36::1736:7f31, 2600:1406:5e00:6::17ce:bc12, 2600:1406:5e00:6::17ce:bc1b, 2600:1406:bc00:53::b81e:94c8, 2600:1406:bc00:53::b81e:94ce, 2600:1408:ec00:36::1736:7f24
+* IPv4: 23.192.228.80, 23.192.228.84, 23.215.0.136, 23.215.0.138, 23.220.75.232, 23.220.75.245
+*   Trying 23.192.228.80:443...
+* Connected to example.com (23.192.228.80) port 443
+* ALPN: curl offers h2,http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [512 bytes data]
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+{ [122 bytes data]
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+{ [29 bytes data]
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+{ [2350 bytes data]
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+{ [79 bytes data]
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+{ [52 bytes data]
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+} [52 bytes data]
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384 / X25519 / id-ecPublicKey
+* ALPN: server accepted h2
+* Server certificate:
+*  subject: C=US; ST=California; L=Los Angeles; O=Internet Corporation for Assigned Names and Numbers; CN=*.example.com
+*  start date: Jan 15 00:00:00 2025 GMT
+*  expire date: Jan 15 23:59:59 2026 GMT
+*  subjectAltName: host "example.com" matched cert's "example.com"
+*  issuer: C=US; O=DigiCert Inc; CN=DigiCert Global G3 TLS ECC SHA384 2020 CA1
+*  SSL certificate verify ok.
+*   Certificate level 0: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 1: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 2: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using ecdsa-with-SHA384
+} [5 bytes data]
+* using HTTP/2
+* [HTTP/2] [1] OPENED stream for https://example.com/
+* [HTTP/2] [1] [:method: HEAD]
+* [HTTP/2] [1] [:scheme: https]
+* [HTTP/2] [1] [:authority: example.com]
+* [HTTP/2] [1] [:path: /]
+* [HTTP/2] [1] [user-agent: curl/8.5.0]
+* [HTTP/2] [1] [accept: */*]
+} [5 bytes data]
+> HEAD / HTTP/2
+> Host: example.com
+> User-Agent: curl/8.5.0
+> Accept: */*
+> 
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [265 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [281 bytes data]
+* old SSL session ID is stale, removing
+{ [5 bytes data]
+< HTTP/2 200 
+< content-type: text/html
+< etag: "84238dfc8092e5d9c0dac8ef93371a07:1736799080.121134"
+< last-modified: Mon, 13 Jan 2025 20:11:20 GMT
+< cache-control: max-age=86000
+< date: Sun, 07 Sep 2025 22:35:25 GMT
+< alt-svc: h3=":443"; ma=93600,h3-29=":443"; ma=93600
+< 
+* Connection #0 to host example.com left intact
+HTTP/2 200 
+content-type: text/html
+etag: "84238dfc8092e5d9c0dac8ef93371a07:1736799080.121134"
+last-modified: Mon, 13 Jan 2025 20:11:20 GMT
+cache-control: max-age=86000
+date: Sun, 07 Sep 2025 22:35:25 GMT
+alt-svc: h3=":443"; ma=93600,h3-29=":443"; ma=93600
+
+
+----- Versión TLS observada -----
+Versión TLS detectada: TLSv1.3
+TLS provee confidencialidad e integridad; modernamente se prefiere TLS 1.2 o 1.3.

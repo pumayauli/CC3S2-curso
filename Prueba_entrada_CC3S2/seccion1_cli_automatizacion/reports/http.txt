@@ -1,0 +1,20 @@
+===== curl -Is https://example.com =====
+HTTP/2 200 
+content-type: text/html
+etag: "84238dfc8092e5d9c0dac8ef93371a07:1736799080.121134"
+last-modified: Mon, 13 Jan 2025 20:11:20 GMT
+cache-control: max-age=86000
+date: Sun, 07 Sep 2025 22:35:24 GMT
+alt-svc: h3=":443"; ma=93600,h3-29=":443"; ma=93600
+
+
+----- Explicación -----
+Código HTTP observado: 200
+200 OK: el servidor respondió correctamente a la solicitud.
+Detalles de las cabeceras HTTP:
+- **Content-Type**: `text/html` significa que el servidor está devolviendo contenido en formato HTML (una página web).
+- **ETag**: `"84238dfc8092e5d9c0dac8ef93371a07:1736799080.121134"` es un identificador único para el recurso, usado para detectar cambios entre solicitudes posteriores.
+- **Last-Modified**: `Mon, 13 Jan 2025 20:11:20 GMT` indica la fecha y hora en que se actualizó por última vez el recurso en el servidor.
+- **Cache-Control**: `max-age=86000` indica que el recurso puede ser almacenado en caché durante 86,000 segundos (~24 horas).
+- **Date**: `Sun, 07 Sep 2025 22:35:24 GMT` es la fecha y hora en que el servidor generó la respuesta.
+- **Alt-Svc**: `h3=":443"; ma=93600` indica que el servidor también soporta HTTP/3 en el puerto 443, válido durante 26 horas.

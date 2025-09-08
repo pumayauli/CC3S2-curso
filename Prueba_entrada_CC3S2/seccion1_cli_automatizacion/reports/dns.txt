@@ -1,0 +1,27 @@
+===== dig A example.com +noall +answer =====
+example.com.		172	IN	A	23.220.75.245
+example.com.		172	IN	A	23.192.228.80
+example.com.		172	IN	A	23.192.228.84
+example.com.		172	IN	A	23.215.0.136
+example.com.		172	IN	A	23.215.0.138
+example.com.		172	IN	A	23.220.75.232
+
+===== dig AAAA example.com +noall +answer =====
+example.com.		103	IN	AAAA	2600:1406:5e00:6::17ce:bc1b
+example.com.		103	IN	AAAA	2600:1406:bc00:53::b81e:94c8
+example.com.		103	IN	AAAA	2600:1406:bc00:53::b81e:94ce
+example.com.		103	IN	AAAA	2600:1408:ec00:36::1736:7f24
+example.com.		103	IN	AAAA	2600:1408:ec00:36::1736:7f31
+example.com.		103	IN	AAAA	2600:1406:5e00:6::17ce:bc12
+
+===== dig MX example.com +noall +answer =====
+example.com.		0	IN	MX	0 errdomain.
+
+----- Comentario TTL -----
+TTL observado (segundos): 172 (para los registros A) y 103 (para los registros AAAA).
+El TTL indica cuánto tiempo un resolver puede *cachear* esta respuesta antes de volver a consultar.
+
+Explicación de los registros:
+- **Registros A**: Estos registros indican las direcciones **IPv4** de **example.com**.
+- **Registros AAAA**: Estos registros indican las direcciones **IPv6** de **example.com**.
+- **Registros MX**: El valor "errdomain" sugiere un problema con la configuración del servidor de correo para **example.com**.
